@@ -50,6 +50,7 @@ export class CryptoFormComponent {
     const res = this.createCryptoUseCase.execute(crypto);
 
     console.log('Criptomoneda guardada:', res);
+    if (!res.id) console.log('Criptomoneda con id repetida.');
 
     this.router.navigate(['/']);
   }

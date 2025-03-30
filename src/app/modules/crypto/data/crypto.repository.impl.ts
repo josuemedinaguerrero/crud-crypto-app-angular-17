@@ -27,6 +27,8 @@ export class CryptoRepositoryImpl implements CryptoRepository {
     const cryptoData = sessionStorage.getItem(this.storageKey);
     const cryptoList: Crypto[] = cryptoData ? JSON.parse(cryptoData) : [];
 
+    if (cryptoList.some((x) => x.id === crypto.id)) return { id: '', name: '', symbol: '' };
+
     cryptoList.unshift(crypto);
 
     sessionStorage.setItem(this.storageKey, JSON.stringify(cryptoList));
