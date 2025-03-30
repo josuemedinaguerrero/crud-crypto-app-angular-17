@@ -4,9 +4,7 @@ import { Observable, of, tap } from 'rxjs';
 import { CryptoRepository } from '../domain/crypto.repository';
 import { Crypto } from '../core/models/crypto.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CryptoRepositoryImpl implements CryptoRepository {
   private apiUrl = 'https://api.coingecko.com/api/v3/coins/list';
   private storageKey = 'cryptoData';
@@ -36,10 +34,30 @@ export class CryptoRepositoryImpl implements CryptoRepository {
   }
 
   update(id: string, crypto: Crypto): string {
-    return '';
+    try {
+      const cryptoData = sessionStorage.getItem(this.storageKey);
+      let cryptoList: Crypto[] = cryptoData ? JSON.parse(cryptoData) : [];
+
+      cryptoList = cryptoList.map((c) => (c.id === id ? { id, name: crypto.name, symbol: crypto.symbol } : c));
+
+      sessionStorage.setItem(this.storageKey, JSON.stringify(cryptoList));
+      return 'Datos actualizados correctamente.';
+    } catch (error) {
+      return 'Ha ocurrido un error al actualizar los datos.';
+    }
   }
 
   delete(id: string): boolean {
-    return true;
+    try {
+      const cryptoData = sessionStorage.getItem(this.storageKey);
+      let cryptoList: Crypto[] = cryptoData ? JSON.parse(cryptoData) : [];
+
+      cryptoList = cryptoList.filter((c) => c.id !== id);
+
+      sessionStorage.setItem(this.storageKey, JSON.stringify(cryptoList));
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }
