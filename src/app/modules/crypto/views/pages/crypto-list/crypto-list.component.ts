@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './crypto-list.component.html',
-  styleUrl: './crypto-list.component.css'
+  styleUrl: './crypto-list.component.css',
 })
-export class CryptoListComponent {
-
-}
+export class CryptoListComponent {}
