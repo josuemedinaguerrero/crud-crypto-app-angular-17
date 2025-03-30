@@ -1,1 +1,26 @@
-<p>crypto-form works!</p>
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-4">
+    {{ isEdit ? "Editar Criptomoneda" : "Crear Criptomoneda" }}
+  </h2>
+
+  <form [formGroup]="cryptoForm" (ngSubmit)="isEdit ? updateCrypto() : guardarCrypto()">
+    <div *ngIf="!isEdit">
+      <label class="block text-gray-700">ID:</label>
+      <input formControlName="id" type="text" class="w-full p-2 border rounded-md mb-4" placeholder="Ej: 0chain" />
+    </div>
+
+    <label class="block text-gray-700">Símbolo:</label>
+    <input formControlName="symbol" type="text" class="w-full p-2 border rounded-md mb-4" placeholder="Ej: zcn" />
+
+    <label class="block text-gray-700">Nombre:</label>
+    <input formControlName="name" type="text" class="w-full p-2 border rounded-md mb-4" placeholder="Ej: Zus" />
+
+    <button
+      type="submit"
+      [disabled]="cryptoForm.invalid"
+      class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out"
+    >
+      {{ isEdit ? "Actualizar Criptomoneda" : "Guardar Criptomoneda" }}
+    </button>
+  </form>
+</div>
